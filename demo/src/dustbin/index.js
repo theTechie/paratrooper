@@ -1,23 +1,23 @@
-import React, { Component } from "react";
-import { DragSource, DropTarget, Orchestrator } from "../../../src";
-import classnames from "classnames";
-import "./dustbin.css";
+import React, { Component } from "react"
+import { DragSource, DropTarget, Orchestrator } from "../../../src"
+import classnames from "classnames"
+import "./dustbin.css"
 
 const getBackground = (dragInProgress, draggedOver) =>
-  draggedOver ? "green" : dragInProgress ? "yellow" : "black";
+  draggedOver ? "green" : dragInProgress ? "yellow" : "black"
 
 function getDragText(dragInProgress, draggedOver) {
   if (draggedOver) {
-    return "Release to drop";
+    return "Release to drop"
   } else {
-    return "Drag a box here";
+    return "Drag a box here"
   }
 }
 
 class Dustbin extends Component {
   handleDrop = draggingSource => {
-    alert("Dropped " + draggingSource);
-  };
+    alert("Dropped " + draggingSource)
+  }
 
   render() {
     return (
@@ -38,11 +38,11 @@ class Dustbin extends Component {
                 >
                   {getDragText(dragInProgress, draggedOver)}
                 </div>
-              );
+              )
             }}
           </DropTarget>
           <div style={{ display: "flex" }}>
-            <DragSource>
+            <DragSource data="Banana">
               {({ isDragging }) => (
                 <div
                   className={classnames("dustbin-drag-source", {
@@ -54,7 +54,7 @@ class Dustbin extends Component {
               )}
             </DragSource>
 
-            <DragSource>
+            <DragSource data="Orange">
               {({ isDragging }) => (
                 <div
                   className={classnames("dustbin-drag-source", {
@@ -66,7 +66,7 @@ class Dustbin extends Component {
               )}
             </DragSource>
 
-            <DragSource>
+            <DragSource data="Apple">
               {({ isDragging }) => (
                 <div
                   className={classnames("dustbin-drag-source", {
@@ -80,8 +80,8 @@ class Dustbin extends Component {
           </div>
         </Orchestrator>
       </div>
-    );
+    )
   }
 }
 
-export default Dustbin;
+export default Dustbin

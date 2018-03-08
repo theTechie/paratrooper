@@ -58,7 +58,7 @@ class ChessBoard extends Component {
                 return (
                   <div style={{ marginBottom: 10 }}>
                     <div>
-                      Position of pawn being dragged:
+                      Position of pawn being dragged:{" "}
                       {draggingSource.position[0]}, {draggingSource.position[1]}
                     </div>
                     <div>

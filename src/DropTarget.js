@@ -22,7 +22,9 @@ class DropTarget extends Component {
       <div
         onDragOver={onDragOver.bind(null, this.id, data)}
         onDragLeave={onDragLeave.bind(null, this.id, data)}
-        onDrop={() => onDropCallback(draggingSource)}
+        onDrop={() => {
+          onDropCallback(draggingSource)
+        }}
       >
         {children({
           dragInProgress,
