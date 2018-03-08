@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { DragSource, DropTarget, Orchestrator } from "../../../src"
+import { Connector, DragSource, DropTarget, Orchestrator } from "../../../src"
 import "./chess_board.css"
 
 const chessBoard = Array(8).fill(Array(8).fill(0))
@@ -20,14 +20,14 @@ function getBackground(
   colIndex,
   dragInProgress,
   draggingSource,
-  draggedOver
+  isDraggedOver
 ) {
   if (dragInProgress) {
     const { position } = draggingSource.data
 
     if (canDrop(rowIndex, colIndex, position)) {
-      return draggedOver && draggedOver.overMe ? "green" : "yellow"
-    } else if (draggedOver && draggedOver.overMe) {
+      return isDraggedOver ? "green" : "yellow"
+    } else if (isDraggedOver) {
       return "red"
     }
   }
@@ -52,7 +52,7 @@ class ChessBoard extends Component {
       <Orchestrator>
         <div>
           <h2>Chess Example</h2>
-          <DropTarget onDrop={() => {}}>
+          <Connector>
             {({ dragInProgress, draggingSource, draggedOver }) => {
               if (dragInProgress) {
                 return (
@@ -75,7 +75,7 @@ class ChessBoard extends Component {
                 )
               }
             }}
-          </DropTarget>
+          </Connector>
           <div className="chess-board-container">
             {chessBoard.map((row, rowIndex) => {
               return (
@@ -120,7 +120,7 @@ class ChessBoard extends Component {
                         >
                           {({
                             dragInProgress,
-                            draggedOver,
+                            isDraggedOver,
                             draggingSource
                           }) => {
                             return (
@@ -132,7 +132,7 @@ class ChessBoard extends Component {
                                     colIndex,
                                     dragInProgress,
                                     draggingSource,
-                                    draggedOver
+                                    isDraggedOver
                                   )
                                 }}
                               />

@@ -18,7 +18,7 @@ class SortableItem extends Component {
 
     return (
       <DropTarget data={item} onDragOver={onDragOver} onDrop={onDrop}>
-        {({ dragInProgress, draggedOver, draggingSource }) => {
+        {() => {
           return (
             <DragSource data={item}>
               {({ isDragging }) => {

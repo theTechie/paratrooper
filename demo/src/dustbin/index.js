@@ -3,11 +3,11 @@ import { DragSource, DropTarget, Orchestrator } from "../../../src"
 import classnames from "classnames"
 import "./dustbin.css"
 
-const getBackground = (dragInProgress, draggedOver) =>
-  draggedOver ? "green" : dragInProgress ? "yellow" : "black"
+const getBackground = (dragInProgress, isDraggedOver) =>
+  isDraggedOver ? "green" : dragInProgress ? "yellow" : "black"
 
-function getDragText(dragInProgress, draggedOver) {
-  if (draggedOver) {
+function getDragText(dragInProgress, isDraggedOver) {
+  if (isDraggedOver) {
     return "Release to drop"
   } else {
     return "Drag a box here"
@@ -24,19 +24,19 @@ class Dustbin extends Component {
       <div style={{ padding: 50 }}>
         <Orchestrator>
           <DropTarget onDrop={this.handleDrop}>
-            {({ dragInProgress, draggedOver }) => {
+            {({ dragInProgress, isDraggedOver }) => {
               return (
                 <div
                   className="dustbin-target"
                   style={{
-                    background: getBackground(dragInProgress, draggedOver),
+                    background: getBackground(dragInProgress, isDraggedOver),
                     color:
-                      getBackground(dragInProgress, draggedOver) === "yellow"
+                      getBackground(dragInProgress, isDraggedOver) === "yellow"
                         ? "black"
                         : "white"
                   }}
                 >
-                  {getDragText(dragInProgress, draggedOver)}
+                  {getDragText(dragInProgress, isDraggedOver)}
                 </div>
               )
             }}

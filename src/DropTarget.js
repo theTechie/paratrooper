@@ -34,9 +34,7 @@ class DropTarget extends Component {
       >
         {children({
           dragInProgress,
-          draggedOver: draggedOver
-            ? { ...draggedOver, overMe: draggedOver.id === this.id }
-            : null,
+          isDraggedOver: draggedOver ? draggedOver.id === this.id : false,
           draggingSource
         })}
       </div>
@@ -45,7 +43,8 @@ class DropTarget extends Component {
 }
 
 DropTarget.propTypes = {
-  data: PropTypes.object
+  data: PropTypes.object,
+  isDraggedOver: PropTypes.bool
 }
 
 DropTarget.contextTypes = {
