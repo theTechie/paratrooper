@@ -1,21 +1,21 @@
-import React, { Component } from "react";
-import { render } from "react-dom";
+import React, { Component } from "react"
+import { render } from "react-dom"
 
-import { DragSource, DropTarget, Orchestrator } from "../../src";
+import { DragSource, DropTarget, Orchestrator } from "../../src"
 
-import Dustbin from "./dustbin";
-import ChessBoard from "./chess";
+import Dustbin from "./dustbin"
+import ChessBoard from "./chess"
 
 class Demo extends Component {
   render() {
     return (
       <div>
-        <h1>Paratrooper Demo</h1>
-        <Dustbin />
+        <h1>Paratrooper Demos</h1>
         <ChessBoard />
+        <Dustbin />
       </div>
-    );
+    )
   }
 }
 
-render(<Demo />, document.querySelector("#demo"));
+render(<Demo />, document.querySelector("#demo"))

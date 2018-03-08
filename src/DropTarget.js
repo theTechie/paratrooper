@@ -1,22 +1,22 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from "react"
+import PropTypes from "prop-types"
 
 class DropTarget extends Component {
   componentWillMount() {
-    this.id = this.context.registerTarget(this.props.data);
+    this.id = this.context.registerTarget(this.props.data)
   }
   componentWillUnmount() {
-    this.context.deregisterTarget(this.id);
+    this.context.deregisterTarget(this.id)
   }
   render() {
-    const { children, onDrop: onDropCallback, data } = this.props;
+    const { children, onDrop: onDropCallback, data } = this.props
     const {
       onDragOver,
       onDragLeave,
       dragInProgress,
       draggedOver,
       draggingSource
-    } = this.context;
+    } = this.context
 
     return (
       <div
@@ -26,17 +26,19 @@ class DropTarget extends Component {
       >
         {children({
           dragInProgress,
-          draggedOver: draggedOver ? draggedOver : null,
+          draggedOver: draggedOver
+            ? { ...draggedOver, overMe: draggedOver.id === this.id }
+            : null,
           draggingSource
         })}
       </div>
-    );
+    )
   }
 }
 
 DropTarget.propTypes = {
   data: PropTypes.object
-};
+}
 
 DropTarget.contextTypes = {
   dragInProgress: PropTypes.bool,
@@ -50,6 +52,6 @@ DropTarget.contextTypes = {
   onDragOver: PropTypes.func,
   onDragLeave: PropTypes.func,
   onDrop: PropTypes.func
-};
+}
 
-export default DropTarget;
+export default DropTarget
