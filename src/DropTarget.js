@@ -15,7 +15,8 @@ class DropTarget extends Component {
       onDragLeave,
       dragInProgress,
       draggedOver,
-      draggingSource
+      draggingSource,
+      onDrop
     } = this.context
 
     return (
@@ -23,6 +24,7 @@ class DropTarget extends Component {
         onDragOver={onDragOver.bind(null, this.id, data)}
         onDragLeave={onDragLeave.bind(null, this.id, data)}
         onDrop={() => {
+          onDrop(draggedOver)
           onDropCallback(draggingSource)
         }}
       >

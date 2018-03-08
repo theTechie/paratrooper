@@ -1,13 +1,13 @@
-import { Component } from "react";
-import PropTypes from "prop-types";
+import { Component } from "react"
+import PropTypes from "prop-types"
 
 class Orchestrator extends Component {
-  targets = [];
+  targets = []
 
   state = {
     draggingSource: null,
     draggedOver: null
-  };
+  }
 
   getChildContext = () => ({
     draggingSource: this.state.draggingSource,
@@ -18,31 +18,31 @@ class Orchestrator extends Component {
     onDragOver: this.onDragOver,
     onDragLeave: this.onDragLeave,
     onDrop: this.onDrop,
-    dragInProgress: this.state.draggingSource !== null,
+    dragInProgress: !!this.state.draggingSource,
     draggedOver: this.state.draggedOver
-  });
+  })
 
   beginDrag = data => {
-    this.setState({ draggingSource: data });
-  };
+    this.setState({ draggingSource: data })
+  }
 
   endDrag = id => {
-    this.setState({ draggingSource: null, draggedOver: null });
-  };
+    this.setState({ draggingSource: null, draggedOver: null })
+  }
 
   registerTarget = data => {
-    this.targets = this.targets.concat(data);
-    return this.targets.length - 1;
-  };
+    this.targets = this.targets.concat(data)
+    return this.targets.length - 1
+  }
 
   deregisterTarget = id => {
-    this.targets.splice(id, 1);
-  };
+    this.targets.splice(id, 1)
+  }
 
   onDragOver = (id, data, e) => {
-    e.preventDefault(); // crucial for onDrop to work
+    e.preventDefault() // crucial for onDrop to work
 
-    const { draggingSource, draggedOver } = this.state;
+    const { draggingSource, draggedOver } = this.state
     if (!draggedOver || draggedOver.id !== id) {
       this.setState({
         draggedOver: {
@@ -50,23 +50,22 @@ class Orchestrator extends Component {
           id,
           draggingSource
         }
-      });
+      })
     }
-  };
+  }
 
   onDragLeave = id => {
-    this.setState({ draggedOver: null });
-    console.log("onDragLeave");
-  };
+    this.setState({ draggedOver: null })
+    console.log("onDragLeave")
+  }
 
   onDrop = id => {
-    // const draggedOver = this.state.draggedOver;
-    // this.setState({ draggedOver: null });
-  };
+    this.setState({ draggedOver: null, draggingSource: null })
+  }
 
   render() {
-    const { children } = this.props;
-    return children;
+    const { children } = this.props
+    return children
   }
 }
 
@@ -84,6 +83,6 @@ Orchestrator.childContextTypes = {
     id: PropTypes.number,
     draggingSource: PropTypes.number
   })
-};
+}
 
-export default Orchestrator;
+export default Orchestrator
