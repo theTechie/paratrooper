@@ -37,7 +37,7 @@ function getBackground(
 
 class ChessBoard extends Component {
   state = {
-    pawnPosition: [0, 0]
+    pawnPosition: [0, 1]
   }
 
   handleDrop = (rowIndex, colIndex, draggingSource) => {
@@ -69,7 +69,9 @@ class ChessBoard extends Component {
                   </div>
                 )
               } else {
-                return <div>Nothing being dragged</div>
+                return (
+                  <div style={{ marginBottom: 10 }}>Nothing being dragged</div>
+                )
               }
             }}
           </DropTarget>
