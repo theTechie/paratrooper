@@ -23,7 +23,7 @@ function getBackground(
   draggedOver
 ) {
   if (dragInProgress) {
-    const { position } = draggingSource
+    const { position } = draggingSource.data
 
     if (canDrop(rowIndex, colIndex, position)) {
       return draggedOver && draggedOver.overMe ? "green" : "yellow"
@@ -41,7 +41,7 @@ class ChessBoard extends Component {
   }
 
   handleDrop = (rowIndex, colIndex, draggingSource) => {
-    if (canDrop(rowIndex, colIndex, draggingSource.position)) {
+    if (canDrop(rowIndex, colIndex, draggingSource.data.position)) {
       this.setState({ pawnPosition: [rowIndex, colIndex] })
     }
   }
@@ -59,7 +59,8 @@ class ChessBoard extends Component {
                   <div style={{ marginBottom: 10 }}>
                     <div>
                       Position of pawn being dragged:{" "}
-                      {draggingSource.position[0]}, {draggingSource.position[1]}
+                      {draggingSource.data.position[0]},{" "}
+                      {draggingSource.data.position[1]}
                     </div>
                     <div>
                       Position of dragged over cell:{" "}
@@ -78,7 +79,10 @@ class ChessBoard extends Component {
           <div className="chess-board-container">
             {chessBoard.map((row, rowIndex) => {
               return (
-                <div className="chess-board-row">
+                <div
+                  className="chess-board-row"
+                  key={"chess_board_row_" + rowIndex}
+                >
                   {row.map((x, colIndex) => {
                     if (
                       rowIndex === pawnPosition[0] &&
@@ -112,6 +116,7 @@ class ChessBoard extends Component {
                           data={{
                             position: [rowIndex, colIndex]
                           }}
+                          key={"drop_target_" + rowIndex + "_" + colIndex}
                         >
                           {({
                             dragInProgress,

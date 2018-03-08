@@ -16,7 +16,7 @@ function getDragText(dragInProgress, draggedOver) {
 
 class Dustbin extends Component {
   handleDrop = draggingSource => {
-    alert("Dropped " + draggingSource)
+    alert("Dropped " + draggingSource.data)
   }
 
   render() {

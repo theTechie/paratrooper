@@ -21,7 +21,11 @@ class DropTarget extends Component {
 
     return (
       <div
-        onDragOver={onDragOver.bind(null, this.id, data)}
+        onDragOver={e => {
+          // console.log("onDragOver", draggedOver, draggingSource)
+          onDragOver(this.id, data, e)
+          this.props.onDragOver && this.props.onDragOver(draggedOver)
+        }}
         onDragLeave={onDragLeave.bind(null, this.id, data)}
         onDrop={() => {
           onDrop(draggedOver)

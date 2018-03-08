@@ -2,6 +2,7 @@ import { Component } from "react"
 import PropTypes from "prop-types"
 
 class Orchestrator extends Component {
+  sourceId = 1
   targets = []
 
   state = {
@@ -19,11 +20,16 @@ class Orchestrator extends Component {
     onDragLeave: this.onDragLeave,
     onDrop: this.onDrop,
     dragInProgress: !!this.state.draggingSource,
-    draggedOver: this.state.draggedOver
+    draggedOver: this.state.draggedOver,
+    getSourceId: this.getSourceId
   })
 
-  beginDrag = data => {
-    this.setState({ draggingSource: data })
+  getSourceId = () => {
+    return this.sourceId++
+  }
+
+  beginDrag = (id, data) => {
+    this.setState({ draggingSource: { id, data } })
   }
 
   endDrag = id => {
@@ -82,7 +88,8 @@ Orchestrator.childContextTypes = {
   draggedOver: PropTypes.shape({
     id: PropTypes.number,
     draggingSource: PropTypes.number
-  })
+  }),
+  getSourceId: PropTypes.func
 }
 
 export default Orchestrator
