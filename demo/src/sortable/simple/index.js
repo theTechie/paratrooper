@@ -12,6 +12,15 @@ const items = [
   "PROFIT"
 ]
 
+const Item = ({ item, isDragging, style = {} }) => (
+  <div
+    className="sortable-item"
+    style={{ opacity: isDragging ? 0.0 : 1.0, ...style }}
+  >
+    {item}
+  </div>
+)
+
 class SortableItem extends Component {
   render() {
     const { item, onDragOver, onDrop } = this.props
@@ -22,14 +31,7 @@ class SortableItem extends Component {
           return (
             <DragSource data={item}>
               {({ isDragging }) => {
-                return (
-                  <div
-                    className="sortable-item"
-                    style={{ opacity: isDragging ? 0.4 : 1.0 }}
-                  >
-                    {item}
-                  </div>
-                )
+                return <Item item={item} isDragging={isDragging} />
               }}
             </DragSource>
           )
@@ -59,10 +61,21 @@ class SimpleSortableList extends Component {
   handleDrop = (item, draggedOver) => {}
 
   render() {
+    const containerWidth = 300
     return (
-      <div style={{ width: 300 }}>
+      <div style={{ width: containerWidth }}>
         <h2>Sortable List - Simple</h2>
-        <Orchestrator>
+        <Orchestrator
+          customPreview={({ data }) => {
+            return (
+              <Item
+                item={data}
+                isDragging={false}
+                style={{ background: "green", width: containerWidth }}
+              />
+            )
+          }}
+        >
           {items.map(item => {
             return (
               <SortableItem

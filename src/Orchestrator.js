@@ -1,4 +1,5 @@
-import { Component } from "react"
+import React, { Component } from "react"
+import ReactDOM from "react-dom"
 import PropTypes from "prop-types"
 
 class Orchestrator extends Component {
@@ -28,8 +29,17 @@ class Orchestrator extends Component {
     return this.sourceId++
   }
 
-  beginDrag = (id, data) => {
-    this.setState({ draggingSource: { id, data } })
+  beginDrag = (id, draggingSourceProps, e) => {
+    this.setState({ draggingSource: { id, ...draggingSourceProps } })
+
+    if (this.props.customPreview) {
+      var myDiv = document.createElement("div")
+      myDiv.style.transform =
+        "translateX(-500px)" /* or visibility: hidden, or any of the above */
+      document.body.appendChild(myDiv)
+      ReactDOM.render(this.props.customPreview(draggingSourceProps), myDiv)
+      e.dataTransfer.setDragImage(myDiv, -300, 20)
+    }
   }
 
   endDrag = id => {
@@ -73,6 +83,10 @@ class Orchestrator extends Component {
     const { children } = this.props
     return children
   }
+}
+
+Orchestrator.propTypes = {
+  customPreview: PropTypes.element
 }
 
 Orchestrator.childContextTypes = {

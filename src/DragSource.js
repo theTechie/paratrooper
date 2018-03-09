@@ -16,8 +16,9 @@ class DragSource extends Component {
     return (
       <div
         draggable={true}
-        onDragStart={beginDrag.bind(null, this.id, this.props.data)}
+        onDragStart={beginDrag.bind(null, this.id, this.props)}
         onDragEnd={endDrag.bind(null, this.id)}
+        style={{ cursor: "move" }}
       >
         {children({ isDragging })}
       </div>

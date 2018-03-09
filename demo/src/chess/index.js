@@ -49,15 +49,19 @@ class ChessBoard extends Component {
   render() {
     const { pawnPosition } = this.state
     return (
-      <Orchestrator>
+      <Orchestrator
+        customPreview={() => {
+          return <img src={require("./knight.png")} width={60} height={60} />
+        }}
+      >
         <div>
           <h2>Chess Example</h2>
           <Connector>
             {({ dragInProgress, draggingSource, draggedOver }) => {
               if (dragInProgress) {
                 return (
-                  <div style={{ marginBottom: 10 }}>
-                    <div>
+                  <div style={{ marginBottom: 10, display: "flex" }}>
+                    <div style={{ marginRight: 20 }}>
                       Position of pawn being dragged:{" "}
                       {draggingSource.data.position[0]},{" "}
                       {draggingSource.data.position[1]}
@@ -99,9 +103,21 @@ class ChessBoard extends Component {
                             <div
                               className="chess-board-cell"
                               style={{
-                                background: "green"
+                                background: getBackground(
+                                  rowIndex,
+                                  colIndex,
+                                  false,
+                                  null,
+                                  null
+                                )
                               }}
-                            />
+                            >
+                              <img
+                                src={require("./knight.png")}
+                                width={70}
+                                height={70}
+                              />
+                            </div>
                           )}
                         </DragSource>
                       )
